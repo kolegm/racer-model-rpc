@@ -3,9 +3,9 @@
  * Define method `model.rpc` for calling of RPC
  */
 
-const debug = require('debug')('racer-model-rpc:client');
+const { dbName } = require('./config');
 
-const { dbName } from './config';
+const debug = require('debug')('racer-model-rpc:client');
 
 // Options for Query builder
 const defaultOptions = { db: dbName };
