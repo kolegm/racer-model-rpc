@@ -1,0 +1,41 @@
+{
+  "name": "racer-model-rpc",
+  "version": "0.0.1",
+  "description": "Remote Procedure Calling with Racer model",
+  "keywords": [
+    "rpc",
+    "racer",
+    "sharedb",
+    "derby"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install && npm audit fix",
+    "up": "npm update",
+    "check": "npm outdated",
+    "upgrade": "npm run up && npm run check && npm run build",
+    "push-version": "standard-version",
+    "ls-g": "npm list -g --depth=0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kolegm/racer-model-rpc.git"
+  },
+  "author": "Oleg Kravchuk <kolegm.real@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kolegm/racer-model-rpc/issues"
+  },
+  "homepage": "https://github.com/kolegm/racer-model-rpc#readme",
+  "devDependencies": {
+    "racer": "^0.9.15",
+    "standard-version": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "dependencies": {
+    "debug": "^4.1.1",
+    "sharedb": "^1.3.2"
+  }
+}
