@@ -5,8 +5,10 @@
 
 const debug = require('debug')('racer-model-rpc:client');
 
+const { dbName } from './config';
+
 // Options for Query builder
-const defaultOptions = { db: 'rpc' };
+const defaultOptions = { db: dbName };
 
 const plugin = (racer, options) => {
   const Model = racer.Model;
@@ -17,7 +19,7 @@ const plugin = (racer, options) => {
    * Ability to call RPC from the client side
    *
    * @param eventKey string  It's a key, what RPC-handler must be called at server side
-   * @param data null|Object Client Criteria (input data for RPC-handling at server side)
+   * @param query null|Object Client query (input data for RPC-handling at server side)
    * @return Promise of results
    *
    * Example:
@@ -28,7 +30,7 @@ const plugin = (racer, options) => {
    *      .then(result => console.log(result))
    *      .catch(error => console.error(error));
    */
-  Model.prototype.rpc = function (eventKey, data) {
+  Model.prototype.rpc = async function (eventKey, query) {
 
     if (!eventKey || typeof eventKey !== 'string') {
       throw new TypeError('Wrong key of RPC event');
@@ -40,7 +42,7 @@ const plugin = (racer, options) => {
     const scoped = this.scope();
 
     // Racer Query builder
-    const query = scoped.query(key, data, options);
+    const query = scoped.query(key, query, options);
 
     const executor = (resolve, reject) => {
       debug(`Started calling of 'rpc:${key}'`);
@@ -54,13 +56,13 @@ const plugin = (racer, options) => {
 
         if (error) reject(error);
         else {
-          const data = query.get();
+          const result = query.get();
 
           // Racer internally keeps track of the context in which you call subscribe or fetch,
           // and it counts the number of times that each item is subscribed or fetched.
           query.unfetch(); // clear racer caching
 
-          resolve(data || null);
+          resolve(result || null);
         }
       };
 

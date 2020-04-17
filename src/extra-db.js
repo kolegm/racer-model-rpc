@@ -7,13 +7,15 @@
  * @see `sharedb/lib/db` is a base for the current db
  */
 
-const debug = require('debug')('racer-model-rpc:client');
+const { dbName } = require('./config');
+
+const debug = require('debug')('racer-model-rpc:db');
 
 const AbstractDB = require('sharedb/lib/db');
 
 const ExtraDB = class extends AbstractDB {
   get name() {
-    return 'rpc';
+    return dbName;
   }
 
   /**
