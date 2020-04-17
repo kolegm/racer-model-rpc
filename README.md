@@ -55,6 +55,8 @@ RPC.client(client);
 #### 3. Calling of RPC from client
 ```node
 const model = client.createModel();
+// For Derby's component just use
+//const model = this.model;
 
 // @see ./server-side.js for details about RPC-handler
 model.rpc('user-finder', { email: 'example@mail.com' })
