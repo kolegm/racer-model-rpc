@@ -1,1 +1,63 @@
 # Remote Procedure Calling with Racer model
+
+## At server side
+
+#### 1. Import dependencies
+```node
+//const derby = require('derby');
+const racer = require('racer');
+const RPC = require('racer-model-rpc');
+```
+
+#### 2. Extend Racer backend
+```node
+//const backend = derby.createBackend();
+const backend = racer.createBackend();
+RPC.backend(backend); // define additional methods to setup a list of extra DBs
+```
+
+#### 3. Setup extra DB
+```node
+// Define RPC handler to process requests from the client side
+const rpcHandlerMap = new Map();
+// Example to define RPC-handler with some processing
+rpcHandlerMap.set('user-finder', async ({ email }) => Usecase.findUser({ email }));
+
+// Define result formatter
+const format = result => {
+  console.log(result);
+  return result;
+};
+
+// Setub a new extra DB
+const db = new RPC.ExtraDB(rpcHandlerMap, format);
+backend.addExtraDb(db);
+
+// Check extra DB (just for testing)
+const found = backend.getExtraDb(db.name);
+console.log('Found extra DB: ', found);
+```
+
+## At client side
+
+#### 1. Import dependencies
+```node
+//const client = require('derby');
+const client = require('racer');
+const RPC = require('racer-model-rpc');
+```
+
+#### 2. Extend Racer model at client
+```node
+RPC.client(client);
+```
+
+#### 3. Calling of RPC from client
+```node
+const model = client.createModel();
+
+// @see ./server-side.js for details about RPC-handler
+model.rpc('user-finder', { email: 'example@mail.com' })
+  .then(result => console.log(result))
+  .catch(error => console.error(error));
+```
