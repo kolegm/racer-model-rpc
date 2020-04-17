@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/kolegm/racer-model-rpc/compare/v0.0.8...v0.1.1) (2020-04-17)
+
+
+### Features
+
+* first workable version ([7c3a045](https://github.com/kolegm/racer-model-rpc/commit/7c3a0457e0cd23f29ec2d648651f8871e36c9dbc))
+
 ### [0.0.8](https://github.com/kolegm/racer-model-rpc/compare/v0.0.7...v0.0.8) (2020-04-17)
 
 ### [0.0.7](https://github.com/kolegm/racer-model-rpc/compare/v0.0.6...v0.0.7) (2020-04-17)
