@@ -16,7 +16,9 @@ const backend = racer.createBackend();
 RPC.backend(backend); // define additional methods to setup a list of extra DBs
 ```
 
-#### 3. Setup extra DB
+#### 3. Setup extra DB (as RPC processing engine) into `sharedb`
+Racer uses `sharedb` under the hood to handle all operations at server side
+
 ```node
 // Define RPC handler to process requests from the client side
 const rpcHandlerMap = new Map();
@@ -47,12 +49,12 @@ const client = require('racer');
 const RPC = require('racer-model-rpc');
 ```
 
-#### 2. Extend Racer model at client
+#### 2. Define method `model.rpc` for RPC-calling
 ```node
 RPC.client(client);
 ```
 
-#### 3. Calling of RPC from client
+#### 3. RPC-calling
 ```node
 const model = client.createModel();
 // For Derby's component just use
