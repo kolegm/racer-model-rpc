@@ -30,7 +30,7 @@ const plugin = (racer, options) => {
    *      .then(result => console.log(result))
    *      .catch(error => console.error(error));
    */
-  Model.prototype.rpc = async function (eventKey, query) {
+  Model.prototype.rpc = async function (eventKey, criteria) {
 
     if (!eventKey || typeof eventKey !== 'string') {
       throw new TypeError('Wrong key of RPC event');
@@ -42,7 +42,7 @@ const plugin = (racer, options) => {
     const scoped = this.scope();
 
     // Racer Query builder
-    const query = scoped.query(key, query, options);
+    const query = scoped.query(key, criteria, options);
 
     const executor = (resolve, reject) => {
       debug(`Started calling of 'rpc:${key}'`);
