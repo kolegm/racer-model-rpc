@@ -17,15 +17,17 @@ const ExtraDB = class extends AbstractDB {
   }
 
   /**
-   * @param rpcHandlers Map object holds RPC-handlers to process client requests
+   * @param rpcHandlers Map of objects holds RPC-handlers to process client requests
    * @param resultFormat Function parses results from RPC-handler into a custom format declared by you
    */
   constructor(rpcHandlers, resultFormat) {
     super();
 
-    this.rpcHandlers = rpcHandlers instanceof Map
+    const handlers = rpcHandlers && typeof rpcHandlers[Symbol.iterator] === 'function'
       ? rpcHandlers
-      : new Map(); // as default
+      : null;
+
+    this.rpcHandlers = new Map(rpcHandlers);
 
     this.resultFormat =
       typeof resultFormat === 'function'
@@ -43,14 +45,16 @@ const ExtraDB = class extends AbstractDB {
   ) {
     // `callback` is a function with arguments [error, snapshots, extra]
     if (typeof callback !== 'function') {
-      throw new Error('Callback is required');
+      const error = new Error('Callback is required');
+      return callback(error);
     }
 
     const key = collection; // Key of RPC-event
 
     // Look up a RPC-handler by the key of RPC-event
     if (!this.rpcHandlers.has(key)) {
-      throw new Error(`Undefined RPC query handler by the key: '${key}'`);
+      const error = new Error(`Undefined RPC query handler by the key: '${key}'`);
+      return callback(error);
     }
 
     const handler = this.rpcHandlers.get(key);
