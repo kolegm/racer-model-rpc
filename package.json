@@ -1,6 +1,6 @@
 {
   "name": "racer-model-rpc",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Remote Procedure Calling with Racer model",
   "keywords": [
     "rpc",
