@@ -81,12 +81,18 @@ const ExtraDB = class extends AbstractDB {
     };
 
     try {
+      const start = new Date();
+
       const data = await handler(query);
       const result = this.resultFormat(data);
 
+      const diff = new Date() - start;
+
+      debug(`RPC-handling is finished in ${diff}ms`)
       done(null, result);
     } catch (error) {
       //console.error(error);
+      debug(error);
       done(new Error('Technical error has occurred'));
     }
   }
