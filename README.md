@@ -25,8 +25,12 @@ Racer uses `sharedb` under the hood to handle all operations at server side
 ```node
 // Define RPC handler to process requests from the client side
 const rpcHandlerMap = new Map();
+
+const rpcEvent = 'user-finder';
+const handler = async ({ email }) => Usecase.findUser({ email });
+
 // Example to define RPC-handler with some processing
-rpcHandlerMap.set('user-finder', async ({ email }) => Usecase.findUser({ email }));
+rpcHandlerMap.set(rpcEvent, handler);
 
 // Define result formatter
 const format = result => {
@@ -63,8 +67,24 @@ const model = client.createModel();
 // For Derby's component just use
 //const model = this.model;
 
+const rpcEvent = 'user-finder';
+const query = { email: 'example@mail.com' };
+
+const success = result => console.log(result);
+const failure = error => console.error(error);
+
 // @see ./server-side.js for details about RPC-handler
-model.rpc('user-finder', { email: 'example@mail.com' })
-  .then(result => console.log(result))
-  .catch(error => console.error(error));
+model.rpc(rpcEvent, query).then(success).catch(failure);
+```
+
+Example of calling with `async/await`
+```node
+(async () => {
+  try {
+    const result = await model.rpc(rpcEvent, query);
+    success(result);
+  } catch (error) {
+    failure(error);
+  }
+})();
 ```
