@@ -1,12 +1,12 @@
 const racer = require('racer');
 
 //const RPC = require('racer-model-rpc');
-const RPC = require('../src');
+const rpcExtension = require('../src/client');
 
 // ----------------------------
 // Extend Racer model at client
 // ----------------------------
-RPC.client(racer);
+rpcExtension(racer);
 
 // ----------------------------
 // Calling of RPC from client

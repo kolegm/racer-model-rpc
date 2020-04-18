@@ -49,12 +49,12 @@ console.log('Found extra DB: ', found);
 ```node
 //const client = require('derby');
 const client = require('racer');
-const RPC = require('racer-model-rpc');
+const extension = require('racer-model-rpc/src/client');
 ```
 
-#### 2. Define method `model.rpc` for RPC-calling
+#### 2. Define extension - method `model.rpc` for RPC-calling
 ```node
-RPC.client(client);
+extension(client);
 ```
 
 #### 3. RPC-calling
