@@ -55,11 +55,15 @@ const ExtraDB = class extends AbstractDB {
 
     // Look up a RPC-handler by the key of RPC-event
     if (!this.rpcHandlers.has(key)) {
-      const error = new Error(`Undefined RPC query handler by the key: '${key}'`);
+      const error = new Error(`Undefined RPC-handler by the key: '${key}'`);
       return callback(error);
     }
 
     const handler = this.rpcHandlers.get(key);
+    if (typeof handler !== 'function') {
+      const error = new Error(`Invalid RPC-handler by the key '${key}'. Must be a function`);
+      return callback(error);
+    }
 
     // Format declared by `sharedb`
     const done = (error, result/*, extra*/) => {
