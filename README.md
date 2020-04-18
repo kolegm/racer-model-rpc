@@ -1,4 +1,7 @@
 # Remote Procedure Calling with Racer model
+(similar to [racer-rpc](https://github.com/kolegm/racer-rpc) but more advanced)
+
+# Usage instruction
 
 ## At server side
 
