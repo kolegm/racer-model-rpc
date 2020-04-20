@@ -73,7 +73,6 @@ const query = { email: 'example@mail.com' };
 const success = result => console.log(result);
 const failure = error => console.error(error);
 
-// @see ./server-side.js for details about RPC-handler
 model.rpc(rpcEvent, query).then(success).catch(failure);
 ```
 
