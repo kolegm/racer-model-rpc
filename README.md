@@ -68,19 +68,19 @@ const model = client.createModel();
 //const model = this.model;
 
 const rpcEvent = 'user-finder';
-const query = { email: 'example@mail.com' };
+const criteria = { email: 'example@mail.com' };
 
 const success = result => console.log(result);
 const failure = error => console.error(error);
 
-model.rpc(rpcEvent, query).then(success).catch(failure);
+model.rpc(rpcEvent, criteria).then(success).catch(failure);
 ```
 
 Example of calling with `async/await`
 ```node
 (async () => {
   try {
-    const result = await model.rpc(rpcEvent, query);
+    const result = await model.rpc(rpcEvent, criteria);
     success(result);
   } catch (error) {
     failure(error);
